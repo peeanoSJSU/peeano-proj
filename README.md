@@ -1,19 +1,5 @@
 # peeano :)
 
-### Download p5 dependencies for React
-Install p5:  
-- `npm i react-p5` 
-
-Might need these if it's not working: 
-- `npm i p5`  
-- `npm i react-p5-wrapper` 
-
-#
-
-### Bootstrap styling:
-- `npm install react-bootstrap bootstrap`
-
-#
 
 ### React Frontend
 Go to > peeano-frontend
@@ -26,6 +12,21 @@ Go to > peeano-backend
 Note: Backend is not complete (as in mongoDB is local, not in the cloud yet.)
 
 # 
+
+### Bootstrap styling:
+- `npm install react-bootstrap bootstrap`
+
+#
+
+### Download p5 dependencies for React
+Install p5:  
+- `npm i react-p5` 
+
+Might need these if it's not working: 
+- `npm i p5`  
+- `npm i react-p5-wrapper` 
+
+#
 
 #### Install these packages globally (REQUIRED)
 ⬇ Installing nodemon
