@@ -6,21 +6,6 @@ import * as p5 from 'p5';
 import UserContext from '../../context/UserContext';
 import axios from 'axios';
 
-/*
-Problems:
-
-- p5 doesn't wait for keymappings to be received
-- if start proj & is logged in, p5 can't tell because it doesn't wait for the db data to be retrieved
-- when logging out, need to refresh the page or else the record button and all the data will stay
-- Recording title: be able to get the amount of recordings that they have
-- the console.log(userData.user) in PianoSketch but outside Sketch is running twice for some reason
-
-
-- Sometimes
-- Adding recording; make auto-updating trackName in the db; only make it for display
-
-*/
-
 
 const PianoSketch = () => {
 
@@ -28,15 +13,9 @@ const PianoSketch = () => {
   let recordingNumber = 0;
   const getRecordings = async(e) => {
     if(userData.user) {
-      console.log("outside sketch user = ", userData.user.id);
       const recordingRes = await axios.get("http://localhost:3001/getRecording", 
         {user: userData.user.id});
-      console.log("getRecordings() = ", recordingRes.data);
-      console.log("recording length = ", Object.keys(recordingRes.data).length);
       recordingNumber = Object.keys(recordingRes.data).length;
-    }
-    else {
-      console.log("no user, no recordings");
     }
   }
   getRecordings();
@@ -56,13 +35,10 @@ const PianoSketch = () => {
        DB setup
     */
 
-    console.log(userData.user);
     if (userData.user) {
       state = 1;
       originalState = 1;
     }
-
-    console.log("p5 user is: ", userData);
 
     // end DB setup
 
@@ -203,7 +179,6 @@ const PianoSketch = () => {
         currentUser = new User(keyArray);
       }
       else {
-        console.log("setup remove all");
         p5.remove();
       }
       }
@@ -692,19 +667,6 @@ const PianoSketch = () => {
         this.recordings = [];
       }
 
-      // SCRAP THIS
-      // updateKeyMappingsToDB(keys) {
-      //   this.allKeys = keys;
-      //   // replace keybinds with keyArray & place within the Sketch
-      //   console.log("starting update of db key mappings ... ");
-      //   const setKeyMappings = async(e) => {
-      //       const keyBindRes = await axios.post("http://localhost:3001/saveKeybinds", 
-      //         {user: props.userData.user.id , keybinds: keys});
-      //       console.log("SetKeyMappings() = ", keyBindRes);
-      //   }
-      //   setKeyMappings();
-      // } 
-
       updateKeyMappings(keys) {
         this.allKeys = keys;
       } 
@@ -743,16 +705,13 @@ const PianoSketch = () => {
           addToDB.push([timeKeys, recording[timeKeys].getNote()]);
         });
 
-        console.log("starting to send recording to db");
         // change recording to recording array and trackName a changing number
         const addRecordings = async(e) => {
             const addedRecording = await axios.post("http://localhost:3001/saveRecording", 
               {user: userData.user.id, trackName: recordingNumber, recordingPiece: addToDB });
-            console.log("addRecording() = ", addedRecording.data.newRecordingAdded);
             recordingNumber++;
         }
         addRecordings();
-        console.log('added recording to db');
       }
 
       // This method adds a recording to the p5 User object, not the database
