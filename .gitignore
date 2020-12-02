@@ -1,0 +1,4 @@
+peeano-backend/.env
+*.DS_store
+peeano-frontend/node_modules/.cache/*
+
