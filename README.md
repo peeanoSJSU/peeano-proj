@@ -1,19 +1,13 @@
 # peeano :)
 
 
-### React Frontend
+## How to run project
 Go to > peeano-frontend
-- run `npm start` to view react project
-
-### Node/Express/MongoDB Backend
-Go to > peeano-backend
-- run `nodemon server` to start node server
-
-Note: Backend is not complete (as in mongoDB is local, not in the cloud yet.)
+- run `npm run dev` to view react project
 
 # 
 
-### Bootstrap styling:
+### Download Bootstrap styling:
 - `npm install react-bootstrap bootstrap`
 
 #
